@@ -1,0 +1,44 @@
+= Vagrant RVM Cache
+
+Vagrant RVM cache allows you to save time and network bandwidth by avoiding unnecessarily re-downloading RVM packages by sharing RVM's archives directory between different guest VMs that use the same Vagrant box. It should work equally well regardless of your RVM installation (single-user, multi-user, or mixed).
+
+== Usage
+
+=== Adding it to your Vagrant environment
+
+==== If you installed Vagrant using RubyGems
+
+To add Vagrant RVM Cache to your Vagrant environment, all you need to do is add the following line to your Gemfile:
+
+  gem 'vagrant-rvm-cache', :git => 'git://github.com/maljub01/vagrant-rvm-cache.git'
+
+Then run `bundle install`. The plugin will then be loaded automatically by Vagrant each time you run `vagrant up` or `vagrant reload`.
+
+==== If you installed Vagrant using system packages or installers
+
+To add Vagrant RVM Cache to your Vagrant environment, you will need to build and install it using Vagrant's frontend to RubyGems.
+This is done by running the following commands:
+
+  git clone git://github.com/maljub01/vagrant-rvm-cache.git
+  cd vagrant-rvm-cache
+  vagrant gem build vagrant-rvm-cache.gemspec
+  vagrant gem install vagrant-rvm-cache-VERSION.gem
+
+The plugin will then be loaded automatically by Vagrant each time you run `vagrant up` or `vagrant reload`.
+
+== Additional Notes
+
+=== /etc/rvmrc
+
+* In order for Vagrant RVM Cache to be able to use the same archives directory for different single-user installations, it overrides RVM's $rvm_archives_path setting from `/etc/rvmrc`.  It will only do this if the file doesn't exist (in order to avoid overwriting your stuff). If you want to have a custom `/etc/rvmrc` file, please make sure you add the following line to it, to ensure that Vagrant RVM Cache works properly for Multi-User installations:
+
+  rvm_archives_path=/usr/local/rvm/archives
+
+== Similar Projects
+
+* {Andrew Vit's vagrant-apt_cache}[http://github.com/avit/vagrant-apt_cache] performs similar caching for APT. I highly recommend you check it out, especially if you're using Debian/Ubuntu guests and their variants.
+
+== License
+
+This project rocks and uses MIT-LICENSE.
+

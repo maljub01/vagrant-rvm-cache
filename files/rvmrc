@@ -1,0 +1,4 @@
+# The following line has been added by Vagrant's RVM Cache plugin.
+# It's necessary for Multi-User RVM installs to share their downloaded files properly
+rvm_archives_path=/usr/local/rvm/archives
+
